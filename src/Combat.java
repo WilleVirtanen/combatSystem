@@ -71,11 +71,11 @@ public class Combat {
     }
     public void calcHeroHP()
     {
-        System.out.println(heroHp-enemieAmountOfHits+"blipblop");
+        System.out.println(heroHp-enemieAmountOfHits);
         heroHp=heroHp-enemieAmountOfHits;
         hp.setPlayerHealth(heroHp);
         int xhp=hp.getPlayerHealth();
-        System.out.println(xhp);
+        System.out.println("should be this: "+xhp);
         amountOfHits=0;
     }   
     
