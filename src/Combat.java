@@ -1,5 +1,7 @@
 import java.util.Random;
-public class Combat {
+import java.util.Scanner;
+public class Combat 
+{
     int currentValue = 0;
     int amountOfSides=6;
     private int amountOfHits=0;
@@ -8,8 +10,10 @@ public class Combat {
     int enemieStrength=2;
     int successValue =4;
     int critValue=6;
-    //boolean combatOngoing=true;
-    //int anybutton;
+    int playerExp;
+    boolean combatOngoing=true;
+    int anybutton;
+    Scanner scan = new Scanner(System.in); 
     String RESET = "\u001B[0m";
     String RED = "\u001B[31m";
     String GREEN = "\u001B[32m";
@@ -19,6 +23,28 @@ public class Combat {
     int heroHp=hp.getPlayerHealth();
 
     public void Combat(){}
+    public void EntireCombat()
+    {
+        while(combatOngoing==true)
+                {
+                    PrintHeroHP();
+                    PrintFoeHP();
+                    System.out.println("to attack press 1, to end combat press 2");
+                    anybutton=scan.nextInt();
+                    System.out.println(anybutton);
+                    if(anybutton==1)
+                    {
+                        playerStrike();
+                        foeStrike();
+                        printPlayerHits();
+                        printFoeHits();
+                        calcHeroHP();
+                        calcFoeHP();                       
+                        calcVictory();                   
+                    }
+                    
+                }
+    }
 
     public void playerStrike()
     {
@@ -67,16 +93,15 @@ public class Combat {
     {
         foeHp=foeHp-amountOfHits;
         hp.setEnemieHealth(foeHp);
-        enemieAmountOfHits=0;
+        amountOfHits=0;
+        
     }
     public void calcHeroHP()
     {
-        System.out.println(heroHp-enemieAmountOfHits);
+        
         heroHp=heroHp-enemieAmountOfHits;
         hp.setPlayerHealth(heroHp);
-        int xhp=hp.getPlayerHealth();
-        System.out.println("should be this: "+xhp);
-        amountOfHits=0;
+        enemieAmountOfHits=0;
     }   
     
     public int getAmountOfHits() {
@@ -94,6 +119,34 @@ public class Combat {
     public void setEnemieAmountOfHits(int enemieAmountOfHits) {
         this.enemieAmountOfHits = enemieAmountOfHits;
     }
-    
-
+    public void PrintHeroHP()
+    {
+        hp.PrintPlayerHp();
+    }
+    public void PrintFoeHP()
+    {
+        hp.PrintfoeHp();
+    }
+    public void calcVictory()
+    {
+        if(foeHp<=0&&heroHp<=0)
+        {
+            System.out.println("Both of you perish");
+            combatOngoing=false;
+        }
+        if(foeHp<=0)
+        {
+            hp.PrintPlayerHp();
+            System.out.println("You have vanquished your foe!");
+            playerExp=+5;
+            System.out.println("You gain 5 experiance points and a rusty longsword");
+            System.out.println("your current experiance is "+playerExp);
+            combatOngoing=false;
+        }
+        if(heroHp<=0)
+        {
+            System.out.println("You have been slayed");
+            combatOngoing=false;    
+        }
+}
 }

@@ -2,9 +2,8 @@ public class PrintHealth {
 
     public PrintHealth() {}
     
-    private int playerHealth=10;
-    private int enemieHealth=6;
-    
+    private int playerHealth=6;
+    private int enemieHealth=4;
     String RESET = "\u001B[0m";
     String RED = "\u001B[31m";
     String GREEN = "\u001B[32m";
@@ -39,8 +38,4 @@ public class PrintHealth {
                     }
                      System.out.println();
     }
-
-    
-
-
 }
